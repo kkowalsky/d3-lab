@@ -1,0 +1,59 @@
+id,name,GEO.id2,percent_unemployed,percent_SNAP,percent_poverty_level,percent_lessthanhighschool_grad,median_income_lessthanhighschool_grad
+1,Alameda County,6001,6.6,5.7,11.4,12.4,21318
+2,Alpine County,6003,6.3,5.2,8.1,44.4,8571
+3,Amador County,6005,8.1,7.6,11.4,24.1,15599
+4,Butte County,6007,8.1,10.0,18.4,9.2,19798
+5,Calaveras County,6009,6.3,5.8,10.6,18.1,12368
+6,Colusa County,6011,9.4,7.4,13.9,32,19906
+7,Contra Costa County,6013,6.6,4.7,9.1,15.2,21501
+8,Del Norte County,6015,5.6,13.6,20.6,21.2,13412
+9,El Dorado County,6017,7,4.2,7.8,12,19997
+10,Fresno County,6019,8.6,16.5,20.7,21.6,15623
+11,Glenn County,6021,6.1,11.7,16.3,24.9,19850
+12,Humboldt County,6023,6.2,8.2,18.6,10.4,19176
+13,Imperial County,6025,9.9,17.2,23.5,22.2,15393
+14,Inyo County,6027,4.6,6.1,10.3,11.6,20221
+15,Kern County,6029,7.7,13.5,19.3,24.2,17002
+16,Kings County,6031,7.7,12.5,17.3,25.3,19353
+17,Lake County,6033,8.2,11.3,21.5,28,15039
+18,Lassen County,6035,4.4,10.0,13,33.3,9629
+19,Los Angeles County,6037,7,7.0,15.6,18.4,18511
+20,Madera County,6039,6.1,14.4,17.1,32.9,18969
+21,Marin County,6041,4.5,2.9,6.8,16.2,18334
+22,Mariposa County,6043,8.3,9.3,12.5,10.8,24492
+23,Mendocino County,6045,7,9.8,16.6,23.4,20190
+24,Merced County,6047,9.8,16.5,21.3,16.2,17678
+25,Modoc County,6049,6.1,8.4,16.2,16.6,9531
+26,Mono County,6051,8.3,3.8,7.4,15.8,25162
+27,Monterey County,6053,6.9,6.5,13.4,26.8,17158
+28,Napa County,6055,5.9,4.5,8,17.3,25169
+29,Nevada County,6057,6.1,4.8,10.9,14.7,17279
+30,Orange County,6059,6,4.4,9.9,14.3,20014
+31,Placer County,6061,5.9,3.5,8.3,12.3,21646
+32,Plumas County,6063,9.6,5.1,13.9,25,13878
+33,Riverside County,6065,8.7,7.9,13.2,18.6,20731
+34,Sacramento County,6067,8.4,9.9,14.1,16.7,18563
+35,San Benito County,6069,8.9,8.2,10.9,18.3,18087
+36,San Bernardino County,6071,8.7,11.4,15.4,19.8,21442
+37,San Diego County,6073,6,4.7,12.2,11.9,20171
+38,San Francisco County,6075,5.5,4.1,12.9,8.1,19519
+39,San Joaquin County,6077,9.8,11.0,15.2,21.7,18836
+40,San Luis Obispo County,6079,5.2,4.4,12.5,7.2,19805
+41,San Mateo County,6081,5.3,2.2,6.8,14.6,22044
+42,Santa Barbara County,6083,5.7,5.7,12.4,15.2,18719
+43,Santa Clara County,6085,6.3,4.2,8.7,13.4,21682
+44,Santa Cruz County,6087,5.7,6.1,12.9,10.1,17390
+45,Shasta County,6089,7.6,8.7,16.4,13.1,18093
+46,Sierra County,6091,4.7,4.3,18.5,29.6,12153
+47,Siskiyou County,6093,7.8,10.7,18.6,17.5,17874
+48,Solano County,6095,6.9,7.2,10.9,15.7,21674
+49,Sonoma County,6097,6.3,5.1,10,15.5,22059
+50,Stanislaus County,6099,9.8,12.4,17,16.8,18605
+51,Sutter County,6101,9.1,10.5,15.2,19.7,16977
+52,Tehama County,6103,8.2,12.1,17.6,17.4,17236
+53,Trinity County,6105,7.9,7.1,13.8,5.8,18594
+54,Tulare County,6107,8.8,19.2,20.7,24.9,15634
+55,Tuolumne County,6109,8.3,8.8,13.2,16.5,25339
+56,Ventura County,6111,6.2,5.7,9,17.6,19259
+57,Yolo County,6113,6.3,7.2,15.4,7.1,19871
+58,Yuba County,6115,10.3,16.7,17.2,17,20481
