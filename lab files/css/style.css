@@ -3,3 +3,13 @@
     stroke: #ccc;
     stroke-width: 2px;
 }
+
+.gratBackground {
+    fill: #808080;
+}
+
+.gratLines{
+    fill: none;
+    stroke: #fff;
+    stroke-width: 1px;
+}
