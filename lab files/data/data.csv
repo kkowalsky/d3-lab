@@ -1,4 +1,4 @@
-id,name,GEO.id2,percent_unemployed,percent_SNAP,percent_poverty_level,percent_lessthanhighschool_grad,median_income_lessthanhighschool_grad
+id,name,GEOID,percent_unemployed,percent_SNAP,percent_poverty_level,percent_lessthanhighschool_grad,median_income_lessthanhighschool_grad
 1,Alameda County,06001,6.6,5.7,11.4,12.4,21318
 2,Alpine County,06003,6.3,5.2,8.1,44.4,8571
 3,Amador County,06005,8.1,7.6,11.4,24.1,15599
