@@ -3,7 +3,7 @@ var keyArray = ["percent_unemployed", "percent_SNAP", "percent_poverty_level", "
 var expressed = keyArray[0]; 
 var colorize;
 var width = 460, height = 560;
-var chartWidth = 550, chartHeight = 560;
+var chartWidth = 400, chartHeight = 500;
 
 
 //begin script when window loads
@@ -110,7 +110,14 @@ function setMap(){
             .style("fill", function(d) {
                 //color enumeration units
                 return choropleth(d, colorize);
-            });
+            })
+            .on("mouseover", highlight)
+            .on("mouseout", dehighlight)
+            .on("mousemove", moveLabel)
+            .append("desc")
+                .text(function(d){
+                    return choropleth(d, colorize);
+                });
         
         createDropdown(csvData);
         setChart(csvData, colorize);
@@ -122,7 +129,7 @@ function createDropdown(csvData){
     var dropdown = d3.select("body")
         .append("div")
         .attr("class", "dropdown") //for positioning menu with css
-        .html("<h3>Select Variable:</h3>")
+        .html("<h3>Select Variable: </h3>  ")
         .append("select")
         .on("change", function(){ 
             changeAttribute(this.value, csvData)});
@@ -145,7 +152,8 @@ function setChart(csvData, colorize){
         .append("svg")
         .attr("width", chartWidth)
         .attr("height", chartHeight)
-        .attr("class", chart);
+        .attr("class", "chart")
+        .style("margin-left", "500px");
     
     //create a text element for the chart title
     var chartTitle = chart.append("text")
@@ -194,7 +202,7 @@ function colorScale(csvData){
     return color;
 }; //end colorScale()
 
-function choropleth(d, colorize){
+function choropleth(d, colorize, error){
     //get data value
     var value = d.properties ? d.properties[expressed] : d[expressed];
 
@@ -219,14 +227,24 @@ function changeAttribute(attribute, csvData){
         })
         .select("desc")
             .text(function(d) {
-                return choropleth(d, colorize);
+                return choropleth(d, colorScale(csvData));
             });
     
     //re-sort the bar chart
     var bars = d3.selectAll(".bar")
+        .data(csvData)
+        .enter()
+        .append("rect")
         .sort(function(a, b){
             return a[expressed] - b[expressed];
         })
+        .attr("class", function(d){
+            return "bar" + "."+ d.name;
+        })
+        .attr("width", chartWidth / csvData.length - 1)
+        .on("mouseover", highlight)
+        .on("mouseout", dehighlight)
+        .on("mousemove", moveLabel)
         .transition() //add animation
         .delay(function(d, i){
             return i * 10
@@ -262,8 +280,7 @@ function updateChart(bars, numbars){
 
 function highlight(data){
     var props = data.properties ? data.properties : data;
-    
-    d3.selectAll("."+props.GEOID)
+    d3.selectAll("."+ props.name)
         .style("fill", "#000");
     
     var labelAttribute = "<h1>"+props[expressed]+
@@ -275,7 +292,7 @@ function highlight(data){
         .append("div") 
         .attr("class", "infolabel")
         .attr("id", props.GEOID+"label")
-        .html(labelAtrribute)
+        .html(labelAttribute)
         .append("div")
         .attr("class", "labelname")
         .html(labelName);
@@ -283,11 +300,11 @@ function highlight(data){
 
 function dehighlight(data){
     var props = data.properties ? data.properties : data;
-    var counts = d3.selectAll("."+props.GEOID);
+    var counts = d3.selectAll("."+props.name);
     var fillcolor = counts.select("desc").text();
     counts.style("fill", fillcolor);
     
-    d3.select("#"+props.GEOID+"label").remove();
+    d3.select("#"+props.name+"label").remove();
 }; //end dehighlight()
  
 function moveLabel(){
@@ -299,8 +316,3 @@ function moveLabel(){
         .style("margin-left", x+"px")
         .style("margin-top", y+"px");
 }; //end moveLabel()
-
-
-
-
-

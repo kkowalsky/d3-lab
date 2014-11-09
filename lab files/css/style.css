@@ -4,6 +4,11 @@ svg {
     position: absolute;
 }
 
+.chart{
+    background-color: rgba(128, 128, 128, .2);
+    float: right;
+    border: medium solid #999;
+}
 
 }.states{
     fill: #ccc;
@@ -70,15 +75,18 @@ svg {
     position: absolute;
 }
 
-.chart{
-    background-color: rgba(128, 128, 128, .2);
-    border: medium solid #999;
-    margin-left: 600px;
-    margin-top: 56px;
-    
-}
-
 .chartTitle{
     font-size: 1.5em;
     font-weight: bold;
+}
+
+.dropdown{
+    margin-left: 500px;
+	margin-top: -10px;
+	margin-bottom: 1px;
+}
+
+.dropdown * {
+    display: inline-block;
+    
 }
