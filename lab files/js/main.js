@@ -2,14 +2,8 @@
 var keyArray = ["percent_unemployed", "percent_SNAP", "percent_poverty_level", "percent_lessthanhighschool_grad", "median_income_lessthanhighschool_grad"];
 var expressed = keyArray[0]; 
 var colorize;
-<<<<<<< HEAD
 var mapWidth = 460, mapHeight = 560;
 var chartWidth = 400, chartHeight = 500;
-
-=======
-var mapWidth = 600, mapHeight = 560;
-var chartWidth = 600, chartHeight = 500;
->>>>>>> fixing le bugs
 
 //begin script when window loads
 window.onload  = initialize();
@@ -92,11 +86,7 @@ function setMap(){
                         var val = parseFloat(csvCounty[attr]);
                         jsonCounty[j].properties[attr] = val;
                     }; 
-<<<<<<< HEAD
-                    jsonCounty[j].properties.name = csvCounty.name; //set prop
-=======
                     jsonCounty[j].properties.GEOID = csvCounty.GEOID; //set prop
->>>>>>> fixing le bugs
                     break; 
                 };
             };  
@@ -253,30 +243,6 @@ function changeAttribute(attribute, csvData){
     updateChart(bars, csvData);
 }; //end changeAttribute()
 
-<<<<<<< HEAD
-function updateChart(bars, numbars){
-        //style bars according to currently expressed attribute
-       bars.attr("height", function(d, i){
-           return Number(d[expressed])*3;
-       })
-       .attr("y", function(d, i){
-           return chartHeight - Number(d[expressed]) * 3;
-       })
-       .attr("x", function(d, i){
-           return i * (chartWidth / numbars);
-       })
-       .style("fill", function(d){
-          return choropleth(d, colorize); 
-       });
-       
-       //update chart title
-       d3.select(".chartTitle")
-        .text("Number of "+ 
-            expressed[0].toUpperCase() +
-            expressed.substring(1,3) + " " +
-            expressed.substring(3) +
-            " In Each County");
-=======
 function updateChart(bars, csvData){
     var numbars = csvData.length;
     var max = findMax();
@@ -312,7 +278,6 @@ function updateChart(bars, csvData){
         };
         return tempMax;
     };//end findMax
->>>>>>> fixing le bugs
 }; //end updateCharts()
 
 function highlight(data){
@@ -337,19 +302,11 @@ function highlight(data){
 
 function dehighlight(data){
     var props = data.properties ? data.properties : data;
-<<<<<<< HEAD
-    var county = d3.selectAll("."+props.name);
-    var fillcolor = county.select("desc").text(); 
-    
-    county.style("fill", fillcolor);
-    d3.select("#"+props.name+"label").remove();
-=======
     var county = d3.selectAll("."+"a"+props.GEOID); //select current county
     var fillcolor = county.select("desc").text(); //reads original color
     county.style("fill", fillcolor);
     
     d3.select("#"+"a"+props.GEOID+"label").remove(); //removes highlight
->>>>>>> fixing le bugs
 }; //end dehighlight()
 
 
