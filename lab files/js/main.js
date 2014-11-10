@@ -118,11 +118,11 @@ function setMap(){
                 .text(function(d){
                     return choropleth(d, colorize);
                 });
-        
+
         createDropdown(csvData);
         setChart(csvData, colorize);
     }; //end callback()
-}//end setMap()
+};//end setMap()
 
 function createDropdown(csvData){
     //add a select element for the dropdown menu
@@ -287,6 +287,7 @@ function highlight(data){
     
     var labelAttribute = "<h1>"+props[expressed]+
         "</h1><br><b>"+label(expressed)+"</b>"; //label content
+<<<<<<< HEAD
     var labelName = props.GEOID //html string for name to go in child div
     
     //create info label div
@@ -298,6 +299,19 @@ function highlight(data){
         .append("div")
         .attr("class", "labelname")
         .html(labelName);
+=======
+    var labelName = props.name ? props.name : props.NAME; //html string for name to go in child div
+
+    //create info label div
+    var infolabel = d3.select("body")
+        .append("div") 
+        .attr("class", "infolabel") //for styling the label
+        .attr("id", "a"+props.GEOID+"label")//for label div
+        .html(labelAttribute) //add text
+        .append("div") //add child div for feature name
+        .attr("class", "labelname") //for styling name
+        .html(labelName); //add feature name to label
+>>>>>>> upd8
 }; //end highlight()
 
 function dehighlight(data){
@@ -324,21 +338,21 @@ function moveLabel(){
 function label(attrName) {
     var labelText;
     switch(attrName) {
-            case "percent_unemployed":
-                labelText = "% Unemployed";
-                break;
-            case "percent_SNAP":
-                labelText = "% on SNAP benefits";
-                break;
-            case "percent_poverty_level":
-                labelText = "% below poverty level";
-                break;
-            case "percent_lessthanhighschool_grad":
-                labelText = "% with less than high school degree";
-                break;
-            case "median_income_lessthanhighschool_grad":
-                labelText = "Less than high school degree median income ($)";
-                break;
+        case "percent_unemployed":
+            labelText = "% Unemployed";
+            break;
+        case "percent_SNAP":
+            labelText = "% on SNAP benefits";
+            break;
+        case "percent_poverty_level":
+            labelText = "% below poverty level";
+            break;
+        case "percent_lessthanhighschool_grad":
+            labelText = "% with less than high school degree";
+            break;
+        case "median_income_lessthanhighschool_grad":
+            labelText = "Less than high school degree median income ($)";
+            break;
     };
     return labelText;
 }; //end label
