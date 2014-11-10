@@ -2,8 +2,8 @@
 var keyArray = ["percent_unemployed", "percent_SNAP", "percent_poverty_level", "percent_lessthanhighschool_grad", "median_income_lessthanhighschool_grad"];
 var expressed = keyArray[0]; 
 var colorize;
-var mapWidth = 460, mapHeight = 560;
-var chartWidth = 400, chartHeight = 500;
+var mapWidth = 560, mapHeight = 560;
+var chartWidth = 600, chartHeight = 500;
 
 //begin script when window loads
 window.onload  = initialize();
@@ -30,9 +30,9 @@ function setMap(){
     
     //Create a Albers equal area conic projection, centered on California
     var projection = d3.geo.albers()
-        .scale(2300)
-        .parallels([34, 46])
-        .center([-23, 38])
+        .scale(2700)
+        .parallels([34, 18])
+        .center([-23, 37.5])
         .translate([mapWidth / 2, mapHeight / 2]);
     
     //create svg path generator using the projection
@@ -66,7 +66,7 @@ function setMap(){
     
     //retrieve and process json file and data
     function callback(error, csvData, output, ca){
-        var colorize = colorScale(csvData); //retrieve color scale generator
+        colorize = colorScale(csvData); //retrieve color scale generator
     
         //variables for csv to json data transfer
         var jsonCounty = ca.objects.counties.geometries;
@@ -203,11 +203,11 @@ function colorScale(csvData){
 function choropleth(d, colorize, error){
     //get data value
     var value = d.properties ? d.properties[expressed] : d[expressed];
-
+    
     //if value exists, assign it a color, otherwise assign gray
     if (value){
         //Uncaught TypeError: undefined is not a function 
-        return colorize(value); 
+        return colorize(value);
     } else{
       return "#ccc";  
     };
@@ -286,14 +286,14 @@ function highlight(data){
         .style("fill", "#000");
     
     var labelAttribute = "<h1>"+props[expressed]+
-        "</h1><br><b>"+expressed+"</b>"; //label content
+        "</h1><br><b>"+label(expressed)+"</b>"; //label content
     var labelName = props.GEOID //html string for name to go in child div
     
     //create info label div
     var infolabel = d3.select("body")
         .append("div") 
         .attr("class", "infolabel")
-        .attr("id", props.GEOID+"label")
+        .attr("id", "a"+props.GEOID+"label")
         .html(labelAttribute)
         .append("div")
         .attr("class", "labelname")
