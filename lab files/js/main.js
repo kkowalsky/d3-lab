@@ -2,9 +2,14 @@
 var keyArray = ["percent_unemployed", "percent_SNAP", "percent_poverty_level", "percent_lessthanhighschool_grad", "median_income_lessthanhighschool_grad"];
 var expressed = keyArray[0]; 
 var colorize;
+<<<<<<< HEAD
 var mapWidth = 460, mapHeight = 560;
 var chartWidth = 400, chartHeight = 500;
 
+=======
+var mapWidth = 600, mapHeight = 560;
+var chartWidth = 600, chartHeight = 500;
+>>>>>>> fixing le bugs
 
 //begin script when window loads
 window.onload  = initialize();
@@ -65,6 +70,7 @@ function setMap(){
         .defer(d3.json, "data/ca.json")
         .await(callback); //trigger callback function once data is loaded
     
+    //retrieve and process json file and data
     function callback(error, csvData, output, ca){
         var colorize = colorScale(csvData); //retrieve color scale generator
     
@@ -86,7 +92,11 @@ function setMap(){
                         var val = parseFloat(csvCounty[attr]);
                         jsonCounty[j].properties[attr] = val;
                     }; 
+<<<<<<< HEAD
                     jsonCounty[j].properties.name = csvCounty.name; //set prop
+=======
+                    jsonCounty[j].properties.GEOID = csvCounty.GEOID; //set prop
+>>>>>>> fixing le bugs
                     break; 
                 };
             };  
@@ -105,7 +115,7 @@ function setMap(){
             .append("g") //give province its own g element
             .attr("class", "counties") //class name for styling
             .append("path") 
-            .attr("class", function (d) { return d.properties.GEOID })
+            .attr("class", function (d) { return "a"+d.properties.GEOID })
             .attr("d", path) //project data as geometry in svg
             .style("fill", function(d) {
                 //color enumeration units
@@ -141,8 +151,7 @@ function createDropdown(csvData){
         .append("option")
         .attr("value", function(d){ return d})
         .text(function(d){
-            d = d[0].toUpperCase() + d.substring(1,3) + " " + d.substring(3);
-            return d
+            return label(d);
         });
 }; //end createDropdown()
 
@@ -153,7 +162,7 @@ function setChart(csvData, colorize){
         .attr("width", chartWidth)
         .attr("height", chartHeight)
         .attr("class", "chart")
-        .style("margin-left", "500px");
+        .style("margin-left", "630px");
     
     //create a text element for the chart title
     var chartTitle = chart.append("text")
@@ -168,7 +177,7 @@ function setChart(csvData, colorize){
         .append("rect")
         .sort(function(a, b){ return a[expressed] - b[expressed]})
         .attr("class", function(d) {
-            return "bar " + d.GEOID;
+            return "bar " + "a"+d.GEOID;
         })
         .attr("width", chartWidth / csvData.length - 1)
         .on("mouseover", highlight)
@@ -176,7 +185,7 @@ function setChart(csvData, colorize){
         .on("mousemove", moveLabel);
     
     //adjust bars according to current attribute
-    updateChart(bars, csvData.length);
+    updateChart(bars, csvData);
 }; //end setChart()
 
 function colorScale(csvData){
@@ -189,8 +198,7 @@ function colorScale(csvData){
             "#E34A33",
             "#B30000"    
         ]);
-    
-    //build array of all currently expresed values for input domain
+    //build array of all currently expressed values for input domain
     var domainArray = [];
     for (var i in csvData) {
         domainArray.push(Number(csvData[i][expressed]));
@@ -208,6 +216,7 @@ function choropleth(d, colorize, error){
 
     //if value exists, assign it a color, otherwise assign gray
     if (value){
+        //Uncaught TypeError: undefined is not a function 
         return colorize(value); 
     } else{
       return "#ccc";  
@@ -241,9 +250,10 @@ function changeAttribute(attribute, csvData){
         });
     
     //update bars according to current attribute
-    updateChart(bars, csvData.length);
+    updateChart(bars, csvData);
 }; //end changeAttribute()
 
+<<<<<<< HEAD
 function updateChart(bars, numbars){
         //style bars according to currently expressed attribute
        bars.attr("height", function(d, i){
@@ -266,16 +276,53 @@ function updateChart(bars, numbars){
             expressed.substring(1,3) + " " +
             expressed.substring(3) +
             " In Each County");
+=======
+function updateChart(bars, csvData){
+    var numbars = csvData.length;
+    var max = findMax();
+    var titleY = (Number(d3.select(".chartTitle").attr("y"))+10);
+
+    //style bars according to currently expressed attribute
+   bars.attr("height", function(d, i){
+       return (((chartHeight-titleY)/max)*Number(d[expressed])); 
+   })
+   .attr("y", function(d, i){
+       return chartHeight - (((chartHeight-titleY)/max)*Number(d[expressed]));
+   })
+   .attr("x", function(d, i){
+       return i * (chartWidth / numbars);
+   })
+   .style("fill", function(d){
+      return choropleth(d, colorize); 
+   });
+
+   //update chart title
+   d3.select(".chartTitle")
+    .text(label(expressed));
+
+    //find the maximum value for the expressed atribute
+    function findMax() {
+        var tempMax = -Infinity;
+        var newNum;
+        for (var i = 0; i < csvData.length; i++) {
+            newNum = Number(csvData[i][expressed])
+            if (newNum > tempMax) {
+                tempMax = newNum;
+            }
+        };
+        return tempMax;
+    };//end findMax
+>>>>>>> fixing le bugs
 }; //end updateCharts()
 
 function highlight(data){
     var props = data.properties ? data.properties : data;
-    d3.selectAll("."+ props.name)
+    d3.selectAll("."+"a"+props.GEOID)
         .style("fill", "#000");
     
     var labelAttribute = "<h1>"+props[expressed]+
         "</h1><br><b>"+expressed+"</b>"; //label content
-    var labelName = props.name //html string for name to go in child div
+    var labelName = props.GEOID //html string for name to go in child div
     
     //create info label div
     var infolabel = d3.select("body")
@@ -290,11 +337,19 @@ function highlight(data){
 
 function dehighlight(data){
     var props = data.properties ? data.properties : data;
+<<<<<<< HEAD
     var county = d3.selectAll("."+props.name);
     var fillcolor = county.select("desc").text(); 
     
     county.style("fill", fillcolor);
     d3.select("#"+props.name+"label").remove();
+=======
+    var county = d3.selectAll("."+"a"+props.GEOID); //select current county
+    var fillcolor = county.select("desc").text(); //reads original color
+    county.style("fill", fillcolor);
+    
+    d3.select("#"+"a"+props.GEOID+"label").remove(); //removes highlight
+>>>>>>> fixing le bugs
 }; //end dehighlight()
 
 
@@ -307,3 +362,27 @@ function moveLabel(){
         .style("margin-left", x+"px")
         .style("margin-top", y+"px");
 }; //end moveLabel()
+
+//this funciton makes the attribute names meaningful
+function label(attrName) {
+    var labelText;
+    switch(attrName) {
+            case "percent_unemployed":
+                labelText = "% Unemployed";
+                break;
+            case "percent_SNAP":
+                labelText = "% on SNAP benefits";
+                break;
+            case "percent_poverty_level":
+                labelText = "% below poverty level";
+                break;
+            case "percent_lessthanhighschool_grad":
+                labelText = "% with less than high school degree";
+                break;
+            case "median_income_lessthanhighschool_grad":
+                labelText = "Less than high school degree median income ($)";
+                break;
+    };
+    return labelText;
+}; //end label
+

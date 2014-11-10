@@ -33,12 +33,6 @@ svg {
     stroke-linecap: round;
 }
 
-.dropdown {
-    margin-left: 598px;
-    margin-top: 40px;
-    margin-bottom: -20px;
-}
-
 .dropdown select{
     font-size: 1em;
     border: 1px solid black;
@@ -81,12 +75,11 @@ svg {
 }
 
 .dropdown{
-    margin-left: 500px;
+    margin-left: 630px;
 	margin-top: -10px;
 	margin-bottom: 1px;
 }
 
 .dropdown * {
     display: inline-block;
-    
 }
