@@ -2,7 +2,7 @@
 var keyArray = ["percent_unemployed", "percent_SNAP", "percent_poverty_level", "percent_lessthanhighschool_grad", "median_income_lessthanhighschool_grad"];
 var expressed = keyArray[0]; 
 var colorize;
-var width = 460, height = 560;
+var mapWidth = 460, mapHeight = 560;
 var chartWidth = 400, chartHeight = 500;
 
 
@@ -25,8 +25,8 @@ function setMap(){
     //create a new svg element with the above dimensions
     var map = d3.select("body")
         .append("svg")
-        .attr("width", width)
-        .attr("height", height)
+        .attr("width", mapWidth)
+        .attr("height", mapHeight)
         .attr("class", "map");
     
     //Create a Albers equal area conic projection, centered on California
@@ -34,7 +34,7 @@ function setMap(){
         .scale(2300)
         .parallels([34, 46])
         .center([-23, 38])
-        .translate([width / 2, height / 2]);
+        .translate([mapWidth / 2, mapHeight / 2]);
     
     //create svg path generator using the projection
     var path = d3.geo.path()
@@ -69,7 +69,7 @@ function setMap(){
         var colorize = colorScale(csvData); //retrieve color scale generator
     
         //variables for csv to json data transfer
-        var jsonCount = ca.objects.counties.geometries;
+        var jsonCounty = ca.objects.counties.geometries;
         
         //loop through csv to assign each csv values to json county
         for (var i = 0; i < csvData.length; i++) {
@@ -77,16 +77,16 @@ function setMap(){
             var csvGEOID = csvCounty.GEOID; //GEOID code
             
             //loop through json counties to find right county
-            for (var j = 0; j < jsonCount.length; j++) {
+            for (var j = 0; j < jsonCounty.length; j++) {
                 //where GEOID codes match, attach csv to json object
-                if (jsonCount[j].properties.GEOID == csvGEOID) {
+                if (jsonCounty[j].properties.GEOID == csvGEOID) {
                     //assign all five key/value pairs
                     for (var key in keyArray){
                         var attr = keyArray[key];
                         var val = parseFloat(csvCounty[attr]);
-                        jsonCount[j].properties[attr] = val;
+                        jsonCounty[j].properties[attr] = val;
                     }; 
-                    jsonCount[j].properties.name = csvCounty.name; //set prop
+                    jsonCounty[j].properties.name = csvCounty.name; //set prop
                     break; 
                 };
             };  
@@ -232,19 +232,9 @@ function changeAttribute(attribute, csvData){
     
     //re-sort the bar chart
     var bars = d3.selectAll(".bar")
-        .data(csvData)
-        .enter()
-        .append("rect")
         .sort(function(a, b){
             return a[expressed] - b[expressed];
         })
-        .attr("class", function(d){
-            return "bar" + "."+ d.name;
-        })
-        .attr("width", chartWidth / csvData.length - 1)
-        .on("mouseover", highlight)
-        .on("mouseout", dehighlight)
-        .on("mousemove", moveLabel)
         .transition() //add animation
         .delay(function(d, i){
             return i * 10
@@ -257,7 +247,7 @@ function changeAttribute(attribute, csvData){
 function updateChart(bars, numbars){
         //style bars according to currently expressed attribute
        bars.attr("height", function(d, i){
-           return Number(d[expressed]) * 3;
+           return Number(d[expressed])*3;
        })
        .attr("y", function(d, i){
            return chartHeight - Number(d[expressed]) * 3;
@@ -300,13 +290,14 @@ function highlight(data){
 
 function dehighlight(data){
     var props = data.properties ? data.properties : data;
-    var counts = d3.selectAll("."+props.name);
-    var fillcolor = counts.select("desc").text();
-    counts.style("fill", fillcolor);
+    var county = d3.selectAll("."+props.name);
+    var fillcolor = county.select("desc").text(); 
     
+    county.style("fill", fillcolor);
     d3.select("#"+props.name+"label").remove();
 }; //end dehighlight()
- 
+
+
 function moveLabel(){
     //horizontal label coordinate based mouse position stored in d3.event
     var x = d3.event.clientX < window.innerWidth - 245 ? d3.event.clientX+10 : d3.event.clientX-210;
