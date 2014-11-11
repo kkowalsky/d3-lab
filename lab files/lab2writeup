@@ -1,0 +1,10 @@
+This lab went a lot better than the leaflet one, perhaps not in the subject, but definitely in lab section.
+Carl was incredibly helpful, knowing that this lab would require more individual attention than the leaflet example. 
+
+I think that a lab section could be dedicated to finding data, and working with topojson command line. After using mapshaper, geojson.io, and shape escape, I came to the conclusion I should have started with command line the entire time. It would also prevent the problem I noticed that several of the aforementioned sites were crashing because of the amount of people trying to convert their data. Also, a myriad of these tools remove the attribute data. 
+
+Going on the lab handout, I felt that the information was pretty well displayed. Carl's explanations of what a SVG is and helpful tutorials and books he showed us that were available made learning d3 initially on our own simple. However, adding extra operators as I did was slightly difficult because of the documentation requiring a lot of in depth exploration on my own. 
+
+In the handout, it would be very helpful to have a FAQ section because it seemed like Carl would spend the first 15 minutes of lab section going over common errors and problems. Being reminded where I can find the answer to a solution Carl talked about or a reminder about certain things (the difference between center and rotate for the map for instance) would be immensely helpful.
+
+A lot of 'Aha!' moments came from having errors and working through what they were, either independently, with classmates, or Carl's help. D3 is extremely finicky, so I view going through this entire lab to be a giant 'Aha!' moment. Learning this as a student is such a valuable skill that throughout the entire lab I felt like I was actively learning. 

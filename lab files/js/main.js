@@ -47,8 +47,7 @@ function setMap(){
     var gratBackground = map.append("path")
         .datum(graticule.outline) //bind graticule background
         .attr("class", "gratBackground") //assign class for styling
-        .attr("d", path) //project graticule
-        .on("click", clicked);
+        .attr("d", path); //project graticule
     
     //create graticule lines
     var gratLines = map.selectAll(".gratLines") //select graticule elements
@@ -57,8 +56,6 @@ function setMap(){
         .append("path") //append each element to the svg as a path element
         .attr("class", "gratLines") //assign a class for styling
         .attr("d", path); //project graticule lines
-        
-    var g = svg.append("g");
     
     //uses queue.js to parallelize asynchronous data loading
     queue()
@@ -117,7 +114,6 @@ function setMap(){
             .on("mouseover", highlight)
             .on("mouseout", dehighlight)
             .on("mousemove", moveLabel)
-            .on("click", clicked)
             .append("desc")
                 .text(function(d){
                     return choropleth(d, colorize);
@@ -323,35 +319,6 @@ function moveLabel(){
         .style("margin-left", x+"px")
         .style("margin-top", y+"px");
 }; //end moveLabel()
-
-function clicked(d){
-    var x, y, k;
-    
-    if (d && centered !== d){
-        var centroid = path.centroid(d);
-        x = centroid[0];
-        y = centroid[1];
-        k = 4;
-        centered = d;
-    } else {
-        x = width / 2;
-        y = height / 2;
-        k = 1;
-        centered = null;
-    }
-    
-    g.selectAll("path")
-        .classed("active", centered && function(d){
-            return d === centered;
-        });
-    
-    g.transition()
-        .duration(750)
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")translate(" + -x + "," + -y + ")")
-        .style("stroke-width", 1.5 / k + "px"
-    
-    
-}
 
 //this funciton makes the attribute names meaningful
 function label(attrName) {
