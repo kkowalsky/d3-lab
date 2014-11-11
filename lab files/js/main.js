@@ -48,6 +48,7 @@ function setMap(){
         .datum(graticule.outline) //bind graticule background
         .attr("class", "gratBackground") //assign class for styling
         .attr("d", path) //project graticule
+        .on("click", clicked);
     
     //create graticule lines
     var gratLines = map.selectAll(".gratLines") //select graticule elements
@@ -57,6 +58,8 @@ function setMap(){
         .attr("class", "gratLines") //assign a class for styling
         .attr("d", path); //project graticule lines
         
+    var g = svg.append("g");
+    
     //uses queue.js to parallelize asynchronous data loading
     queue()
         .defer(d3.csv, "data/data.csv") //load attributes from csv
@@ -114,6 +117,7 @@ function setMap(){
             .on("mouseover", highlight)
             .on("mouseout", dehighlight)
             .on("mousemove", moveLabel)
+            .on("click", clicked)
             .append("desc")
                 .text(function(d){
                     return choropleth(d, colorize);
@@ -287,19 +291,6 @@ function highlight(data){
     
     var labelAttribute = "<h1>"+props[expressed]+
         "</h1><br><b>"+label(expressed)+"</b>"; //label content
-<<<<<<< HEAD
-    var labelName = props.GEOID //html string for name to go in child div
-    
-    //create info label div
-    var infolabel = d3.select("body")
-        .append("div") 
-        .attr("class", "infolabel")
-        .attr("id", "a"+props.GEOID+"label")
-        .html(labelAttribute)
-        .append("div")
-        .attr("class", "labelname")
-        .html(labelName);
-=======
     var labelName = props.name ? props.name : props.NAME; //html string for name to go in child div
 
     //create info label div
@@ -311,7 +302,6 @@ function highlight(data){
         .append("div") //add child div for feature name
         .attr("class", "labelname") //for styling name
         .html(labelName); //add feature name to label
->>>>>>> upd8
 }; //end highlight()
 
 function dehighlight(data){
@@ -333,6 +323,35 @@ function moveLabel(){
         .style("margin-left", x+"px")
         .style("margin-top", y+"px");
 }; //end moveLabel()
+
+function clicked(d){
+    var x, y, k;
+    
+    if (d && centered !== d){
+        var centroid = path.centroid(d);
+        x = centroid[0];
+        y = centroid[1];
+        k = 4;
+        centered = d;
+    } else {
+        x = width / 2;
+        y = height / 2;
+        k = 1;
+        centered = null;
+    }
+    
+    g.selectAll("path")
+        .classed("active", centered && function(d){
+            return d === centered;
+        });
+    
+    g.transition()
+        .duration(750)
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")translate(" + -x + "," + -y + ")")
+        .style("stroke-width", 1.5 / k + "px"
+    
+    
+}
 
 //this funciton makes the attribute names meaningful
 function label(attrName) {
