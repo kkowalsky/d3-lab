@@ -184,6 +184,7 @@ function createLegend(bars, csvData){
     colorize = colorScale(csvData);
     var legendArray = [4, 6, 6.3, 7.8, 8.7];
     var coordinateArray = [25, 125, 225, 325, 425];
+
     
     var legendBox = d3.select("body")
         .append("svg")
@@ -213,6 +214,16 @@ function createLegend(bars, csvData){
     legendItems.attr("fill", function(d, i){
         return colorize(legendArray[i]);
     })
+    
+    
+    //do this
+    var legendLabels = legendBox.selectAll(".legendLabels")
+        .data(coordinateArray)
+        .enter()
+        .attr("class", "legendLabels")
+        .text(function(d, i){
+            return 
+        });
     
    //update chart title.... ISN'T UPDATING
    d3.select(".legendTitle")
