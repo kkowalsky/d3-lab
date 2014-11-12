@@ -3,6 +3,7 @@ var keyArray = ["percent_unemployed", "percent_SNAP", "percent_poverty_level", "
 var expressed = keyArray[0]; 
 var colorize;
 var mapWidth = 560, mapHeight = 560;
+var legendWidth = 560, legendHeight = 200;
 var chartWidth = 600, chartHeight = 500;
 
 //begin script when window loads
