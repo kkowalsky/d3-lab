@@ -2,6 +2,7 @@
 var keyArray = ["percent_unemployed", "percent_SNAP", "percent_poverty_level", "percent_lessthanhighschool_grad", "median_income_lessthanhighschool_grad"];
 var expressed = keyArray[0]; 
 var colorize;
+var quantile;
 var mapWidth = 560, mapHeight = 560;
 var legendWidth = 560, legendHeight = 100;
 var chartWidth = 600, chartHeight = 500;
@@ -156,10 +157,10 @@ function setChart(csvData, colorize){
         .style("margin-left", "630px");
     
     //create a text element for the chart title
-    var chartTitle = chart.append("text")
+    var subtitle = chart.append("text")
         .attr("x", 20)
         .attr("y", 40)
-        .attr("class", "chartTitle");
+        .attr("class", "subtitle");
     
     //set bars for each county
     var bars = chart.selectAll(".bar")
@@ -184,6 +185,7 @@ function createLegend(bars, csvData){
     colorize = colorScale(csvData);
     var legendArray = [4, 6, 6.3, 7.8, 8.7];
     var coordinateArray = [25, 125, 225, 325, 425];
+    var xArray = [125, 225, 325, 425];
 
     
     var legendBox = d3.select("body")
@@ -196,7 +198,8 @@ function createLegend(bars, csvData){
     var legendTitle = legendBox.append("text")
         .attr("x", 20)
         .attr("y", 20)
-        .attr("class", "legendTitle");
+        .attr("class","subtitle")
+        .text(label(expressed));
     
     var legendItems = legendBox.selectAll(".items")
         .data(coordinateArray)
@@ -215,20 +218,26 @@ function createLegend(bars, csvData){
         return colorize(legendArray[i]);
     })
     
-    
     //do this
     var legendLabels = legendBox.selectAll(".legendLabels")
-        .data(coordinateArray)
+        .data(xArray)
         .enter()
+        .append("text")
         .attr("class", "legendLabels")
+        .attr("y", 80)
+        .attr("x", function(d, i){
+            for (var k = 0; k <= 4; k++){
+                xCoords = coordinateArray[i+1];   
+                return xCoords;
+            }
+        })
         .text(function(d, i){
-            return 
+            for (var j = 0; j <= 4; j++){
+                legendNums = quantile[i];   
+                return legendNums;
+            }
         });
-    
-   //update chart title.... ISN'T UPDATING
-   d3.select(".legendTitle")
-    .text(label(expressed));
-
+ 
 }; //end createLegend()
 
 function colorScale(csvData){
@@ -247,10 +256,12 @@ function colorScale(csvData){
     for (var i in csvData) {
         domainArray.push(Number(csvData[i][expressed]));
     };
-
     //pass array of expressed values as domain
     color.domain(domainArray);
     
+   
+    quantile = color.quantiles();
+    //console.log(quantiles);
     return color;
 }; //end colorScale()
 
@@ -300,7 +311,7 @@ function changeAttribute(attribute, csvData){
 function updateChart(bars, csvData){
     var numbars = csvData.length;
     var max = findMax();
-    var titleY = (Number(d3.select(".chartTitle").attr("y"))+10);
+    var titleY = (Number(d3.select(".subtitle").attr("y"))+10);
 
     //style bars according to currently expressed attribute
    bars.attr("height", function(d, i){
@@ -317,9 +328,15 @@ function updateChart(bars, csvData){
    });
 
    //update chart title
-   d3.select(".chartTitle")
+   d3.selectAll(".subtitle")
     .text(label(expressed));
-
+    
+    //update legend labels
+    d3.selectAll(".legendLabels")
+     .text(function(d,i){
+            return Math.round(quantile[i] * 100) / 100;
+    });
+        
     //find the maximum value for the expressed atribute
     function findMax() {
         var tempMax = -Infinity;
@@ -393,7 +410,7 @@ function label(attribute_name) {
         case "median_income_lessthanhighschool_grad":
             labelText = "Less than high school degree median income ($)";
             break;
-    };
+    };  
     return labelText;
 }; //end label
 
