@@ -4,12 +4,6 @@ svg {
     position: absolute;
 }
 
-.chart{
-    background-color: rgba(128, 128, 128, .2);
-    float: right;
-    border: medium solid #999;
-}
-
 }.states{
     fill: #ccc;
     stroke: #fff;
@@ -69,6 +63,12 @@ svg {
     position: absolute;
 }
 
+.chart{
+    background-color: rgba(128, 128, 128, .2);
+    float: right;
+    border: medium solid #999;
+}
+
 .chartTitle{
     font-size: 1.5em;
     font-weight: bold;
@@ -82,4 +82,16 @@ svg {
 
 .dropdown * {
     display: inline-block;
+}
+
+.legendBox{
+    background-color: rgba(128, 128, 128, .2);
+    border: medium solid #999;
+}
+
+li.key{
+    border-top-width: 15px;
+    border-top-style: solid;
+    font-size: .75em;
+    width: 10%;
 }

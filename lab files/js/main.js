@@ -3,7 +3,7 @@ var keyArray = ["percent_unemployed", "percent_SNAP", "percent_poverty_level", "
 var expressed = keyArray[0]; 
 var colorize;
 var mapWidth = 560, mapHeight = 560;
-var legendWidth = 560, legendHeight = 200;
+var legendWidth = 560, legendHeight = 100;
 var chartWidth = 600, chartHeight = 500;
 
 //begin script when window loads
@@ -177,7 +177,48 @@ function setChart(csvData, colorize){
     
     //adjust bars according to current attribute
     updateChart(bars, csvData);
+    createLegend(bars, csvData);
 }; //end setChart()
+
+function createLegend(bars, csvData){
+    colorize = colorScale(csvData);
+    var legendArray = [4, 6, 6.3, 7.8, 8.7];
+    var coordinateArray = [25, 125, 225, 325, 425];
+    
+    var legendBox = d3.select("body")
+        .append("svg")
+        .attr("width", legendWidth)
+        .attr("height", legendHeight)
+        .attr("class", "legendBox")
+        .style("margin-top", 540);
+    
+    var legendTitle = legendBox.append("text")
+        .attr("x", 20)
+        .attr("y", 20)
+        .attr("class", "legendTitle");
+    
+    var legendItems = legendBox.selectAll(".items")
+        .data(coordinateArray)
+        .enter()
+        .append("rect")
+        .attr("class", "items")
+        .attr("y", 35)
+        .attr("width", 100)
+        .attr("height", 30);
+    
+    legendItems.attr("x", function(d, i){
+        return d;
+    });
+    
+    legendItems.attr("fill", function(d, i){
+        return colorize(legendArray[i]);
+    })
+    
+   //update chart title.... ISN'T UPDATING
+   d3.select(".legendTitle")
+    .text(label(expressed));
+
+}; //end createLegend()
 
 function colorScale(csvData){
     //create quantile classes with color scale
@@ -189,12 +230,13 @@ function colorScale(csvData){
             "#E34A33",
             "#B30000"    
         ]);
+
     //build array of all currently expressed values for input domain
     var domainArray = [];
     for (var i in csvData) {
         domainArray.push(Number(csvData[i][expressed]));
     };
-    
+
     //pass array of expressed values as domain
     color.domain(domainArray);
     
@@ -202,7 +244,7 @@ function colorScale(csvData){
 }; //end colorScale()
 
 function choropleth(d, colorize, error){
-    //get data value
+    //get data values
     var value = d.properties ? d.properties[expressed] : d[expressed];
     
     //if value exists, assign it a color, otherwise assign gray
@@ -322,9 +364,9 @@ function moveLabel(){
 }; //end moveLabel()
 
 //this funciton makes the attribute names meaningful
-function label(attrName) {
+function label(attribute_name) {
     var labelText;
-    switch(attrName) {
+    switch(attribute_name) {
         case "percent_unemployed":
             labelText = "% Unemployed";
             break;
