@@ -7,19 +7,34 @@
         
          <!-- Bootstrap core CSS -->
         <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/bootstrap-theme.css" rel="stylesheet">
+        <link href="css/bootstrap-theme.css" rel="stylesheet" media="screen">
         
         <!--main stylesheet-->
         <link rel="stylesheet" href="css/style.css"/>
-    </head>
+    </head>   
+    
     <body>
-        
+        <div class = "row">
+            <div class ="span 12" id ="title"></div>
+        </div>
+        <div class ="row">
+            <div class ="span 6" id ="map"></div>
+            <div class ="span 8" id ="dropdown"></div>
+            <div class ="span 8" id ="chart"></div>
+        </div>
+        <div class ="row">
+            <div class ="span 6" id ="legend"></div>
+            <div class ="span 8" id ="pcp"></div>
+        </div>
+    
         
         <!--libraries-->
         <script src="lib/d3.js"></script>
         <script src="lib/queue.js"></script>
         <script src="lib/topojson.v1.min.js"></script>
+        <script src="http://code.jquery.com/jquery.js"></script>
         <script src="lib/bootstrap.js"></script>
+        
         
         <!--link to main Javascript file-->
         <script src="js/main.js"></script>

@@ -19,12 +19,13 @@ function initialize(){
 function setMap(){
     
     //create a title for the page 
-    var title = d3.select("body")
+    var title = d3.select("#title")
         .append("h1")
-        .text("California Counties Choropleth");
+        .text("California Counties Choropleth")
+        .style("margin-left", "30%");
     
     //create a new svg element with the above dimensions
-    var map = d3.select("body")
+    var map = d3.select("#map")
         .append("svg")
         .attr("width", mapWidth)
         .attr("height", mapHeight)
@@ -128,7 +129,7 @@ function setMap(){
 
 function createDropdown(csvData){
     //add a select element for the dropdown menu
-    var dropdown = d3.select("body")
+    var dropdown = d3.select("#dropdown")
         .append("div")
         .attr("class", "dropdown") //for positioning menu with css
         .html("<h3>Select Variable: </h3>  ")
@@ -149,7 +150,7 @@ function createDropdown(csvData){
 
 function setChart(csvData, colorize){
     //create a second svg element to hold the bar chart
-    var chart = d3.select("body")
+    var chart = d3.select("#chart")
         .append("svg")
         .attr("width", chartWidth)
         .attr("height", chartHeight)
@@ -188,7 +189,7 @@ function createLegend(bars, csvData){
     var xArray = [125, 225, 325, 425];
 
     
-    var legendBox = d3.select("body")
+    var legendBox = d3.select("#legend")
         .append("svg")
         .attr("width", legendWidth)
         .attr("height", legendHeight)
