@@ -22,7 +22,8 @@ function setMap(){
     var title = d3.select("#title")
         .append("h1")
         .text("California Counties Choropleth")
-        .style("margin-left", "30%");
+        .style("margin-left", "30%")
+        .style("margin-bottom", "3%");
     
     //create a new svg element with the above dimensions
     var map = d3.select("#map")

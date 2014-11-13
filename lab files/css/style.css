@@ -4,10 +4,6 @@ svg {
     position: absolute;
 }
 
-.map{
-    margin-left: 2%;
-}
-
 }.states{
     fill: #ccc;
     stroke: #fff;
@@ -33,7 +29,7 @@ svg {
 
 .dropdown select{
     font-size: 1em;
-    width: 33%;
+    width: 50%;
 }
 
 .infolabel{
@@ -76,7 +72,8 @@ svg {
 }
 
 .dropdown{
-    margin-left: 37.5%;
+    margin-left: 54%;
+    margin-bottom: 1%;
 }
 
 .dropdown * {
@@ -84,7 +81,6 @@ svg {
 }
 
 .legendBox{
-    margin-left: 2%;
     background-color: rgba(128, 128, 128, .2);
 }
 
