@@ -234,107 +234,6 @@ function createLegend(bars, csvData){
  
 }; //end createLegend()
 
-function createPCP(csvData){
-    //creates names for the pcp axes
-    var keys = [], attributes = [];
-    
-    //fill keys array with property names
-    for (var key in csvData[0]){
-        keys.push(key);
-    };
-    
-    //fill attributes array with only attribute names
-    for (var i= 3; i < keys.length; i++){
-        attributes.push(keys[i]);
-    };
-    
-    //create horizontal pcp coordinate generator
-    var coordinates = d3.scale.ordinal()
-        .domain(attributes)
-        .range([0, pcpWidth]);
-    
-    //makes axis generator
-    var axis =  d3.svg.axis()
-        .orient("left");
-    
-    //create vertical pcp scale
-    scales = {};
-    attributes.forEach(function(att){
-        scales[att] = d3.scale.linear()
-            .domain(d3.extent(csvData, function(data){
-            return +data[att];
-        }))
-        .range([pcpHeight, 0]);
-    });
-    
-    var line = d3.svg.line(); //line generator
-    
-    //create a new svg element for the plot
-    var pcplot = d3.select("#pcpPlot")
-        .append("svg")
-        .attr("width", pcpWidth)
-        .attr("height", pcpHeight)
-        .attr("class", "pcplot")
-        .append("g");
-//        .attr("transform", d3.transform(
-//            "scale(0.8, 0.6),"+
-//            "translate(96,50"));
-    
-    //create pcp background
-    var pcpBackground = pcplot.append("rect")
-        .attr("x", "-30")
-        .attr("y", "-35")
-        .attr("width", "800")
-        .attr("height", "400")
-        .attr("rx", "15")
-        .attr("ry", "15")
-        .attr("class", "pcpBackground");
-    
-    //add pcp lines
-    var pcpLines = pcplot.append("g")
-        .attr("class", "pcpLines")
-        .selectAll("path")
-        .data(csvData)
-        .enter()
-        .append("path")
-        .attr("id", function(d){
-            return "a" + d.GEOID;
-        })
-        .attr("d", function(d){
-            return line(attributes.map(function(att){
-                return [coordinates(att), scales[att](d[att])];
-            }));
-        });
-    
-    //add axes
-    var axes = pcplot.selectAll(".attribute")
-        .data(attributes)
-        .enter()
-        .append("g")
-        .attr("class", "axes")
-        .attr("transform", function(d){
-            return "translate("+coordinates(d)+")";
-        })
-        .each(function(d){
-            d3.select(this)
-                .call(axis.scale(scales[d])
-                    .ticks(0)
-                    .tickSize(0)
-                )
-            .attr("id", d)
-            .style("stroke-width", "5px")
-            .on("click", function(){
-                //sequence(this, csvData)
-            });
-        });
-    
-    pcplot.select("#"+"a"+expressed)
-        .style("stroke-width", "10px");
-    
-    
-    
-}; //end createPCP()
-
 function colorScale(csvData){
     //create quantile classes with color scale
     var color = d3.scale.quantile() //designate generator
@@ -480,11 +379,11 @@ function dehighlight(data){
 function moveLabel(){
     //horizontal label coordinate based mouse position stored in d3.event
     var x = d3.event.clientX < window.innerWidth - 245 ? d3.event.clientX+10 : d3.event.clientX-210;
-    var y = d3.event.clientY < window.innerHeight - 100 ? d3.event.clientY-75 : d3.event.clientY-175;
+    var y = d3.event.clientY < window.innerHeight + 100 ? d3.event.clientY+75 : d3.event.clientY+175;
     
     d3.select(".infolabel")
-        .style("margin-left", x+"px")
-        .style("margin-top", y+"px");
+        .style("margin-left", x + "px")
+        .style("margin-top", "34%");
 }; //end moveLabel()
 
 //this function makes the attribute names meaningful
