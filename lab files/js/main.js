@@ -6,6 +6,7 @@ var quantile;
 var mapWidth = 560, mapHeight = 560;
 var legendWidth = 560, legendHeight = 100;
 var chartWidth = 600, chartHeight = 500;
+var pcpWidth= 600, pcpHeight = 200;
 
 //begin script when window loads
 window.onload  = initialize();
@@ -17,14 +18,6 @@ function initialize(){
 
 //create choropleth map parameters
 function setMap(){
-    
-    //create a title for the page 
-    var title = d3.select("#title")
-        .append("h1")
-        .text("California Counties Choropleth")
-        .style("margin-left", "30%")
-        .style("margin-bottom", "3%");
-    
     //create a new svg element with the above dimensions
     var map = d3.select("#map")
         .append("svg")
@@ -125,6 +118,7 @@ function setMap(){
 
         createDropdown(csvData);
         setChart(csvData, colorize);
+        createPCP(csvData);
     }; //end callback()
 };//end setMap()
 
@@ -155,8 +149,7 @@ function setChart(csvData, colorize){
         .append("svg")
         .attr("width", chartWidth)
         .attr("height", chartHeight)
-        .attr("class", "chart")
-        .style("margin-left", "630px");
+        .attr("class", "chart");
     
     //create a text element for the chart title
     var subtitle = chart.append("text")
@@ -194,8 +187,7 @@ function createLegend(bars, csvData){
         .append("svg")
         .attr("width", legendWidth)
         .attr("height", legendHeight)
-        .attr("class", "legendBox")
-        .style("margin-top", 540);
+        .attr("class", "legendBox");
     
     var legendTitle = legendBox.append("text")
         .attr("x", 20)
@@ -241,6 +233,107 @@ function createLegend(bars, csvData){
         });
  
 }; //end createLegend()
+
+function createPCP(csvData){
+    //creates names for the pcp axes
+    var keys = [], attributes = [];
+    
+    //fill keys array with property names
+    for (var key in csvData[0]){
+        keys.push(key);
+    };
+    
+    //fill attributes array with only attribute names
+    for (var i= 3; i < keys.length; i++){
+        attributes.push(keys[i]);
+    };
+    
+    //create horizontal pcp coordinate generator
+    var coordinates = d3.scale.ordinal()
+        .domain(attributes)
+        .range([0, pcpWidth]);
+    
+    //makes axis generator
+    var axis =  d3.svg.axis()
+        .orient("left");
+    
+    //create vertical pcp scale
+    scales = {};
+    attributes.forEach(function(att){
+        scales[att] = d3.scale.linear()
+            .domain(d3.extent(csvData, function(data){
+            return +data[att];
+        }))
+        .range([pcpHeight, 0]);
+    });
+    
+    var line = d3.svg.line(); //line generator
+    
+    //create a new svg element for the plot
+    var pcplot = d3.select("#pcpPlot")
+        .append("svg")
+        .attr("width", pcpWidth)
+        .attr("height", pcpHeight)
+        .attr("class", "pcplot")
+        .append("g");
+//        .attr("transform", d3.transform(
+//            "scale(0.8, 0.6),"+
+//            "translate(96,50"));
+    
+    //create pcp background
+    var pcpBackground = pcplot.append("rect")
+        .attr("x", "-30")
+        .attr("y", "-35")
+        .attr("width", "800")
+        .attr("height", "400")
+        .attr("rx", "15")
+        .attr("ry", "15")
+        .attr("class", "pcpBackground");
+    
+    //add pcp lines
+    var pcpLines = pcplot.append("g")
+        .attr("class", "pcpLines")
+        .selectAll("path")
+        .data(csvData)
+        .enter()
+        .append("path")
+        .attr("id", function(d){
+            return "a" + d.GEOID;
+        })
+        .attr("d", function(d){
+            return line(attributes.map(function(att){
+                return [coordinates(att), scales[att](d[att])];
+            }));
+        });
+    
+    //add axes
+    var axes = pcplot.selectAll(".attribute")
+        .data(attributes)
+        .enter()
+        .append("g")
+        .attr("class", "axes")
+        .attr("transform", function(d){
+            return "translate("+coordinates(d)+")";
+        })
+        .each(function(d){
+            d3.select(this)
+                .call(axis.scale(scales[d])
+                    .ticks(0)
+                    .tickSize(0)
+                )
+            .attr("id", d)
+            .style("stroke-width", "5px")
+            .on("click", function(){
+                //sequence(this, csvData)
+            });
+        });
+    
+    pcplot.select("#"+"a"+expressed)
+        .style("stroke-width", "10px");
+    
+    
+    
+}; //end createPCP()
 
 function colorScale(csvData){
     //create quantile classes with color scale
@@ -371,6 +464,7 @@ function highlight(data){
         .append("div") //add child div for feature name
         .attr("class", "labelname") //for styling name
         .html(labelName); //add feature name to label
+    
 }; //end highlight()
 
 function dehighlight(data){
@@ -393,7 +487,7 @@ function moveLabel(){
         .style("margin-top", y+"px");
 }; //end moveLabel()
 
-//this funciton makes the attribute names meaningful
+//this function makes the attribute names meaningful
 function label(attribute_name) {
     var labelText;
     switch(attribute_name) {

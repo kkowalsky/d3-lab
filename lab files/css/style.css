@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-svg {
-    position: absolute;
+.map{
+   
 }
 
 }.states{
@@ -27,14 +27,9 @@ svg {
     stroke-linecap: round;
 }
 
-.dropdown select{
-    font-size: 1em;
-    width: 50%;
-}
-
 .infolabel{
     position: absolute;
-    width: 300px;
+    width: 440px;
     height: 80px;
     color: #fff;
     background: #000;
@@ -52,6 +47,10 @@ svg {
     float: left;
 }
 
+.intro {
+    text-align: center;
+}
+
 .labelname{
     display: inline-block;
     float: right;
@@ -63,7 +62,6 @@ svg {
 
 .chart{
     background-color: rgba(128, 128, 128, .2);
-    margin-left: 36.5%;
 }
 
 .subtitle{
@@ -71,20 +69,27 @@ svg {
     font-weight: bold;
 }
 
-.dropdown{
-    margin-left: 54%;
-    margin-bottom: 1%;
+.dropdown select{
+    font-size: 1em;
 }
 
-.dropdown * {
-    display: inline-block;
+.dropdown{
+    width: 85%;
+    margin-top: -2%;
+    margin-bottom: 1%;
 }
 
 .legendBox{
     background-color: rgba(128, 128, 128, .2);
+    
+    
 }
 
 li.key{
     font-size: .75em;
     width: 10%;
+}
+
+.pcplot{
+    margin-top: 1%;
 }

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>California D3</title>
         
          <!-- Bootstrap core CSS -->
@@ -16,16 +16,26 @@
     <body>
         <div class ="container">
             <div class = "row">
-                <div class ="span 12" id ="title"></div>
+                <div class ="col-xs-6 col-sm-8 col-md-12" id ="title">
+                        <div class="page-header">
+                        <h1>California Counties Choropleth</h1><br>
+                        <p>Jon is an undergraduate in his senior year studying Human Geography and Cartography/GIS. He is fascinated by history and culture and so loves to create maps which incorporate these things. He is also a fan of interactive web cartography and programming. In his free time he tends to be outside or doing something musical.Jon is an undergraduate in his senior year studying Human Geography and Cartography/GIS. He is fascinated by history and culture and so loves to create maps which incorporate these things. He is also a fan of interactive web cartography and programming. In his free time he tends to be outside or doing something musical.</p>
+                    </div>
+                </div>
             </div>
-            <div class ="row">
-                <div class ="span 6" id ="map"></div>
-                <div class ="span 8" id ="dropdown"></div>
-                <div class ="span 8" id ="chart"></div>
+            <div class ="container">
+                <div class = "row">
+                    <div class ="col-xs-12 col-sm-12 col-md-3" id ="map"></div>
+                    <div class ="col-xs-12 col-sm-12 col-md-5 col-md-offset-3" id ="dropdown"></div>
+                    <div class ="col-xs-12 col-sm-12 col-md-5 col-md-offset-3" id ="chart"></div>
+                </div>
             </div>
-            <div class ="row">
-                <div class ="span 6" id ="legend"></div>
-                <div class ="span 8" id ="pcp"></div>
+            <div class ="container">
+                <div class = "row">
+                    <div class ="col-xs-12 col-sm-12 col-md-3" id ="legend"></div>
+            
+                    <div class ="col-xs-12 col-sm-12 col-md-6 col-md-offset-3" id ="pcpPlot"></div>
+                </div>
             </div>
         </div>
     
