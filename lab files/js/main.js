@@ -6,7 +6,6 @@ var quantile;
 var mapWidth = 560, mapHeight = 560;
 var legendWidth = 560, legendHeight = 100;
 var chartWidth = 600, chartHeight = 500;
-var pcpWidth= 600, pcpHeight = 200;
 
 //begin script when window loads
 window.onload  = initialize();
@@ -27,9 +26,9 @@ function setMap(){
     
     //Create a Albers equal area conic projection, centered on California
     var projection = d3.geo.albers()
-        .scale(2700)
+        .scale(3000)
         .parallels([34, 18])
-        .center([-23, 37.5])
+        .center([-23, 37.4])
         .translate([mapWidth / 2, mapHeight / 2]);
     
     //create svg path generator using the projection
@@ -118,7 +117,6 @@ function setMap(){
 
         createDropdown(csvData);
         setChart(csvData, colorize);
-        createPCP(csvData);
     }; //end callback()
 };//end setMap()
 
@@ -191,7 +189,7 @@ function createLegend(bars, csvData){
     
     var legendTitle = legendBox.append("text")
         .attr("x", 20)
-        .attr("y", 20)
+        .attr("y", 25)
         .attr("class","subtitle")
         .text(label(expressed));
     
@@ -383,7 +381,7 @@ function moveLabel(){
     
     d3.select(".infolabel")
         .style("margin-left", x + "px")
-        .style("margin-top", "34%");
+        //.style("margin-top", "500px");
 }; //end moveLabel()
 
 //this function makes the attribute names meaningful

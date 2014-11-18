@@ -1,17 +1,17 @@
 @charset "utf-8";
 
 .map{
-   
+    border-radius: 20px;
 }
 
-}.states{
+.states{
     fill: #ccc;
     stroke: #fff;
     stroke-width: 2px;
 }
 
 .gratBackground{
-    fill: #808080;
+    fill: rgba(73, 155, 214, .7);
 }
 
 .gratLines{
@@ -22,13 +22,12 @@
 
 .counties{
     fill: none;
-    stroke: #000;
-    stroke-width: 0.5px;
+    stroke: #FFFFFF;
+    stroke-width: 1px;
     stroke-linecap: round;
 }
 
 .infolabel{
-    position: absolute;
     width: 440px;
     height: 80px;
     color: #fff;
@@ -47,10 +46,6 @@
     float: left;
 }
 
-.intro {
-    text-align: center;
-}
-
 .labelname{
     display: inline-block;
     float: right;
@@ -62,6 +57,7 @@
 
 .chart{
     background-color: rgba(128, 128, 128, .2);
+    border-radius: 20px;
 }
 
 .subtitle{
@@ -74,15 +70,15 @@
 }
 
 .dropdown{
-    width: 85%;
-    margin-top: -2%;
-    margin-bottom: 1%;
+    width: 200%;
+    margin-top: -5%;
+    margin-bottom: 3%;
 }
 
 .legendBox{
     background-color: rgba(128, 128, 128, .2);
-    
-    
+    margin-bottom: 3%;
+    border-radius: 20px;
 }
 
 li.key{
