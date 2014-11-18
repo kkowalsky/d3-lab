@@ -381,7 +381,7 @@ function moveLabel(){
     
     d3.select(".infolabel")
         .style("margin-left", x + "px")
-        //.style("margin-top", "500px");
+        .style("margin-top", y+"px");
 }; //end moveLabel()
 
 //this function makes the attribute names meaningful
