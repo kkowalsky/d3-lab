@@ -28,6 +28,7 @@
 }
 
 .infolabel{
+    position: relative;
     width: 440px;
     height: 80px;
     color: #fff;

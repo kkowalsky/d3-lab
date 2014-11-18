@@ -109,7 +109,7 @@ function setMap(){
             })
             .on("mouseover", highlight)
             .on("mouseout", dehighlight)
-            .on("mousemove", moveLabel)
+            //.on("mousemove", moveLabel)
             .append("desc")
                 .text(function(d){
                     return choropleth(d, colorize);
@@ -167,7 +167,7 @@ function setChart(csvData, colorize){
         .attr("width", chartWidth / csvData.length - 1)
         .on("mouseover", highlight)
         .on("mouseout", dehighlight)
-        .on("mousemove", moveLabel);
+        //.on("mousemove", moveLabel);
     
     //adjust bars according to current attribute
     updateChart(bars, csvData);
@@ -362,6 +362,9 @@ function highlight(data){
         .attr("class", "labelname") //for styling name
         .html(labelName); //add feature name to label
     
+    d3.select(".infolabel")
+        .style("margin-left", "2%")
+    
 }; //end highlight()
 
 function dehighlight(data){
@@ -376,12 +379,12 @@ function dehighlight(data){
 
 function moveLabel(){
     //horizontal label coordinate based mouse position stored in d3.event
-    var x = d3.event.clientX < window.innerWidth - 245 ? d3.event.clientX+10 : d3.event.clientX-210;
-    var y = d3.event.clientY < window.innerHeight + 100 ? d3.event.clientY+75 : d3.event.clientY+175;
+    var x = d3.event.clientX;
+    var y = d3.event.clientY;
     
     d3.select(".infolabel")
-        .style("margin-left", x + "px")
-        .style("margin-top", y+"px");
+        .style("margin-left", x+"px")
+        .style("margin-bottom", y+"px");
 }; //end moveLabel()
 
 //this function makes the attribute names meaningful
