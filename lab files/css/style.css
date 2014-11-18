@@ -1,7 +1,15 @@
 @charset "utf-8";
+svg {
+    position: absolute;
+}
+.page-header{
+margin-left: 10px;
+}
 
 .map{
     border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .states{
@@ -28,7 +36,7 @@
 }
 
 .infolabel{
-    position: relative;
+    position: absolute;
     width: 440px;
     height: 80px;
     color: #fff;
@@ -59,6 +67,7 @@
 .chart{
     background-color: rgba(128, 128, 128, .2);
     border-radius: 20px;
+     float: right;
 }
 
 .subtitle{
@@ -71,15 +80,19 @@
 }
 
 .dropdown{
-    width: 200%;
-    margin-top: -5%;
-    margin-bottom: 3%;
+    width: 600px;
+    margin-left: 630px;
+	margin-top: -10px;
+	margin-bottom: 1px;
+}
+
+.dropdown * {
+    display: inline-block;
 }
 
 .legendBox{
     background-color: rgba(128, 128, 128, .2);
-    margin-top: 20%;
-    margin-bottom: 3%;
+    margin-left: 10px;
     border-radius: 20px;
 }
 

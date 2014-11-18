@@ -18,7 +18,7 @@ function initialize(){
 //create choropleth map parameters
 function setMap(){
     //create a new svg element with the above dimensions
-    var map = d3.select("#map")
+    var map = d3.select("body")
         .append("svg")
         .attr("width", mapWidth)
         .attr("height", mapHeight)
@@ -109,7 +109,7 @@ function setMap(){
             })
             .on("mouseover", highlight)
             .on("mouseout", dehighlight)
-            //.on("mousemove", moveLabel)
+            .on("mousemove", moveLabel)
             .append("desc")
                 .text(function(d){
                     return choropleth(d, colorize);
@@ -122,7 +122,7 @@ function setMap(){
 
 function createDropdown(csvData){
     //add a select element for the dropdown menu
-    var dropdown = d3.select("#dropdown")
+    var dropdown = d3.select("body")
         .append("div")
         .attr("class", "dropdown") //for positioning menu with css
         .html("<h3>Select Variable: </h3>  ")
@@ -143,11 +143,12 @@ function createDropdown(csvData){
 
 function setChart(csvData, colorize){
     //create a second svg element to hold the bar chart
-    var chart = d3.select("#chart")
+    var chart = d3.select("body")
         .append("svg")
         .attr("width", chartWidth)
         .attr("height", chartHeight)
-        .attr("class", "chart");
+        .attr("class", "chart")
+        .style("margin-left", "630px");;
     
     //create a text element for the chart title
     var subtitle = chart.append("text")
@@ -167,7 +168,7 @@ function setChart(csvData, colorize){
         .attr("width", chartWidth / csvData.length - 1)
         .on("mouseover", highlight)
         .on("mouseout", dehighlight)
-        //.on("mousemove", moveLabel);
+        .on("mousemove", moveLabel);
     
     //adjust bars according to current attribute
     updateChart(bars, csvData);
@@ -181,11 +182,12 @@ function createLegend(bars, csvData){
     var xArray = [125, 225, 325, 425];
 
     
-    var legendBox = d3.select("#legend")
+    var legendBox = d3.select("body")
         .append("svg")
         .attr("width", legendWidth)
         .attr("height", legendHeight)
-        .attr("class", "legendBox");
+        .attr("class", "legendBox")
+        .style("margin-top", 540);
     
     var legendTitle = legendBox.append("text")
         .attr("x", 20)
@@ -361,10 +363,6 @@ function highlight(data){
         .append("div") //add child div for feature name
         .attr("class", "labelname") //for styling name
         .html(labelName); //add feature name to label
-    
-    d3.select(".infolabel")
-        .style("margin-left", "2%")
-    
 }; //end highlight()
 
 function dehighlight(data){
@@ -379,12 +377,12 @@ function dehighlight(data){
 
 function moveLabel(){
     //horizontal label coordinate based mouse position stored in d3.event
-    var x = d3.event.clientX;
-    var y = d3.event.clientY;
+     var x = d3.event.clientX < window.innerWidth - 245 ? d3.event.clientX+10 : d3.event.clientX-210;
+    var y = d3.event.clientY < window.innerHeight - 100 ? d3.event.clientY-75 : d3.event.clientY-175;
     
     d3.select(".infolabel")
         .style("margin-left", x+"px")
-        .style("margin-bottom", y+"px");
+        .style("margin-top", y+"px");
 }; //end moveLabel()
 
 //this function makes the attribute names meaningful
