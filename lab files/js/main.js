@@ -331,7 +331,7 @@ function updateChart(bars, csvData){
             return Math.round(quantile[i] * 100) / 100;
     });
         
-    //find the maximum value for the expressed atribute
+    //find the maximum value for the expressed attribute
     function findMax() {
         var tempMax = -Infinity;
         var newNum;
